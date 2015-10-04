@@ -1,0 +1,7 @@
+package TypeTrans
+
+sourcedir = src
+modules = Main, TypeTrans.AST
+
+main = Main
+executable = typetrans
