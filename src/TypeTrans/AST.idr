@@ -1,5 +1,6 @@
 module TypeTrans.AST
 
+import Data.Vect
 
 -- Define Type Aliases
 Rule : Type
@@ -30,7 +31,7 @@ instance Show Variant where
 
 
 data TypeT = 
-    Vec TypeT Int | 
+    Vec Nat TypeT |
     Tuple (List TypeT) | 
     IntT | 
     ByteT | 
@@ -44,7 +45,7 @@ data TypeT =
     T3 
 
 instance Show TypeT where 
-  show (Vec t i) = "Vec (" ++ show t ++ ") " ++ show i 
+  show (Vec i t) = "Vec " ++ show i ++ " (" ++ show t ++ ")" 
   show (Tuple xs) = "Tuple " ++ show xs 
   show IntT = "Int"
   show ByteT = "Byte"
@@ -56,6 +57,19 @@ instance Show TypeT where
   show T1 = "T1"
   show T2 = "T2"
   show T3 = "T3"
+
+
+-- Vector with description of its dimensions in the type
+NVec : Vect n Nat -> TypeT -> TypeT
+NVec Nil t = t
+NVec (v::vs) t = Vec v (NVec vs t) 
+
+
+-- Calculate the dimension of the given type
+getDimension : TypeT -> Nat
+getDimension (Vec i t) = (S Z) + getDimension t 
+getDimension _ = Z -- Non vector types have dimension 0
+
 
 
 mutual
@@ -78,7 +92,8 @@ mutual
       Map Variant Action | 
       Fold Variant Action Argument | -- Argument here is the accumulator, and action must be a binary operation, not unary
       Compose (List Action) | 
-      Lambda (List Argument) Action | -- (\(x,y) -> map (g x) y) becomes Lambda [x,y] (Map g x) y so the last Argument is usually a Res
+      -- Lambda (List Argument) (Action) ? 
+      Lambda (List Argument) Argument | -- (\(x,y) -> map (g x) y) becomes Lambda [x,y] (Map g x) y so the last Argument is usually a Res
       Loop Action Action |
       Split Int | 
       Merge Int | 
@@ -137,15 +152,15 @@ in
 -}
 
 -- (Tuple [IntT,Vec IntT 3]) 
-
+{-
 p : Program 
 p = Prog  (Compose [
-            Lambda [Arg "x" IntT, Arg "y" (Vec IntT 3)] 
+            Lambda [Arg "x" IntT, Arg "y" (Vec 3 IntT)] 
                    (Map Seq (Opaque "g" [Arg "x" IntT] (Arg "a1" IntT) IntT (0,0)))
                    ]
           ) {- (Arg "y" (Vec IntT 3)), 
         Fold Seq (OpaqueBin True "f" [] (Arg "acc" (Tuple [IntT,Vec IntT 3])) (Arg "a2" IntT) (0,0)) (Arg "acc" (Tuple [IntT,Vec IntT 3]))
         ])  -} 
-    (Arg "v" (Vec IntT 3)) 
+    (Arg "v" (Vec 3 IntT)) 
 
-
+-}

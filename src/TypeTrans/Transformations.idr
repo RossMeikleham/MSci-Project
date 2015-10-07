@@ -3,14 +3,30 @@ module TypeTrans.Transformations
 import TypeTrans.AST
 import Data.Vect
 
---TypeD : Nat -> TypeT -> Type
---MkTypeD t : TypeD n t
+{-
+data TypeD : Nat -> TypeT -> Type where
+  MkTypeD : (t : TypeT) -> TypeD n t
+
+redDim : TypeD (S (S n)) t  -> TypeD (S n) t`
+redDim (MkTypeD (Vec x (Vec y t))) = MkTypeD (Vec (x * y) t)
+-}
 
 
+incrDim : Nat -> TypeT -> Maybe TypeT
+incrDim Z __ = Nothing
+incrDim m (Vec sz tp) =
+  if nsz * m == sz 
+    then Just (Vec m (Vec nsz tp)) 
+    else Nothing
+  where 
+    nsz = sz `div` m
+incrDim _ _ = Nothing 
 
--- Reduce the dimensions in given dimensional type
-redDim : TypeD (S (S n)) t1  -> TypeD (S n) t2
-redDim (MkType (Vec x (Vec y t))) = MkType (Vec (x * y) t)
+ 
+
+redDim : TypeT -> Maybe TypeT
+redDim  (Vec sz1 (Vec sz2 tp)) = Just (Vec (sz1 * sz2) tp)
+redDim _ = Nothing
 
 
 splitMap : Int -> Action -> Action
@@ -26,13 +42,12 @@ splitAssocFoldByMap m (Fold v afa acc) = Compose [Fold v afa acc, Map v (Fold v 
 liftMapCompose : Action -> Action 
 liftMapCompose (Map v (Compose as)) = Compose (map (Map v) as)   
 
-{- ???????
+-- Check
 liftComposeMap : Action -> Action
-liftComposeMap (Compose mas) = Map v (Compose as) 
+liftComposeMap (Compose ((Map v a)::xs)) = Map v (Compose as) 
     where 
-        as = map (\(Map _ a) => a) mas
-        Map v _ = head mas
--}
+        as = map (\(Map _ a) => a) ((Map v a)::xs)
+
 
 
 splitCompose : Action -> Action
@@ -114,27 +129,20 @@ joinDistrMerge (Compose as) = Compose (joinSplitMerge_helper (combineDistrMerge,
 
 
 -- -----------------------------
-{- ???
+--TODO Check
 letToNestedLet : Argument -> Argument 
-letToNestedLet (Let exprs res) with (toIntegerNat $ length exprs) 
- | 1 = (Let exprs res)
- | _ = 
-  letToNestedLet (Let exprs' (Let [expr] res))
-    where 
-        expr : (Argument, Argument) 
-        expr = Prelude.List.last' exprs
+letToNestedLet (Let exprs res) = case exprs of
+  (x::xs) => (Let exprs res)
+  -- Need verbosity of x1::x2::xs for automatic proof checker to 
+  -- infer that exprs is non empty
+  (x1::x2::xs) => letToNestedLet (Let (init (x1::x2::xs)) 
+                    (Let [Prelude.List.last (x1::x2::xs)] res))
 
-        exprs' : List (Argument, Argument)
-        exprs' = Prelude.List.init exprs        
--}
 
--- ???????
-{-
-letToLambda : Argument -> Argument 
-letToLambda (Let [lst] res) = Res (Lambda lhs res) rhs 
-  where
-       lhs = fst $ unzip lst
-       rhs = snd $ unzip lst 
--}  
-  
-   
+
+-- TODO check, doesn't make sense
+-- Lambda [Argument] Argument -> Action
+-- Let [(Argument, Argument)] Argument -> Argument
+-- Res Action Argument -> Argument
+--letToLambda : Argument -> Argument
+--letToLambda (Let [(lhs, rhs)] res) = Res (Lambda lhs res) rhs 
