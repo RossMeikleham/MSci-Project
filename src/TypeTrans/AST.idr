@@ -60,9 +60,9 @@ instance Show TypeT where
 
 
 -- Vector with description of its dimensions in the type
-NVec : Vect n Nat -> TypeT -> TypeT
-NVec Nil t = t
-NVec (v::vs) t = Vec v (NVec vs t) 
+--NVec : Vect n Nat -> TypeT -> TypeT
+--NVec Nil t = t
+--NVec (v::vs) t = Vec v (NVec vs t) 
 
 
 -- Calculate the dimension of the given type
