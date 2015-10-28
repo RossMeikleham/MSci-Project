@@ -1,7 +1,7 @@
 package TypeTrans
 
 sourcedir = src
-modules = Main, TypeTrans.AST
+modules = TypeTrans.AST, TypeTrans.Array, Tests.Array
 
-main = Main
-executable = typetrans
+tests = Tests.Array.testRedDim, Tests.Array.testIncDim, 
+        Tests.Array.testIncDimFactor, Tests.Array.testIncRed

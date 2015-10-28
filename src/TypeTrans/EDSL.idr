@@ -5,15 +5,16 @@ import TypeTrans.AST
 import TypeTrans.Transformations
 import TypeTrans.Array
 import Control.Monad.State
-import Data.Vect
 
+import Data.Vect
+import Effect.File
 
 
 data Program : Type -> Type where 
-  Map : (a -> b) -> Program (Array r xs a) -> Program (Array r xs b) --Deep Map
-  Fold : (a -> b -> b)  -> Program (NVec (x::xs) a) -> Program (NVec xs b)
-  DecDim : Program (Array (S (S r)) (x1::x2::xs) a) -> Program (Array (S r) (x1*x2::xs) a)
-  IncDim : (n : Nat) -> Program (Array (S r) (x::xs) a) -> Program (Array (S (S r)) (n::(x `div` n)::xs) a)
+  Map : (a -> b) -> Program (Array xs a) -> Program (Array xs b) --Deep Map
+  Fold : (a -> b -> b)  -> Program (Array (x::xs) a) -> Program (Array xs b)
+  DecDim : Program (Array (x1::x2::xs) a) -> Program (Array (x1*x2::xs) a)
+  IncDim : (n : Nat) -> Program (Array (x::xs) a) -> Program (Array (n::(x `div` n)::xs) a)
   Singleton : Program (Array 0 [] a) -> Program (Array 1 [1] a)
   InvSingleton : Program (Array 1 [1] a) -> Program (Array 0 [] a) 
   Base : (Array r xs t) -> Program (Array r xs t)
