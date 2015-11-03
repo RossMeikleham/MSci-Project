@@ -5,9 +5,9 @@ environment:
     - platform: x86 
       SOURCE: "https://neon.se/idris/idris-win32-0.9.19.1.zip"
       DEST: "idris.zip"
-#    - platform: x64 
-#      SOURCE: "https://neon.se/idris/idris-win64-0.9.19.1.zip"
-#      DEST: "idris.zip"
+    - platform: x64 
+      SOURCE: "https://neon.se/idris/idris-win64-0.9.19.1.zip"
+      DEST: "idris.zip"
 
 install:
    - curl -o %DEST% %SOURCE%
@@ -15,6 +15,4 @@ install:
  
 build_script:
    - idris\idris.exe --build project.ipkg
- 
-after_build:
    - idris\idris.exe --testpkg project.ipkg
