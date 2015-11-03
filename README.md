@@ -1,8 +1,10 @@
 # MSci-Project
 Exploring type transformations on vectors for generating code which can be run on FPGAs
 
+| OSX + Linux | Win x86 + x64 |
+|-------------|---------------|
+|[![Build Status](https://travis-ci.org/RossMeikleham/MSci-Project.svg?branch=master)](https://travis-ci.org/RossMeikleham/MSci-Project)|[![Build status](https://ci.appveyor.com/api/projects/status/6wfmoaogxslkygpo?svg=true)](https://ci.appveyor.com/project/RossMeikleham/msci-project)
 
-[![Build Status](https://travis-ci.org/RossMeikleham/MSci-Project.svg?branch=master)](https://travis-ci.org/RossMeikleham/MSci-Project)
 
 #Overview
 This project explores using properties of vector types along with operations such as map, fold, and zip
