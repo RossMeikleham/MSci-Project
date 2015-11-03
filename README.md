@@ -9,7 +9,7 @@ such as map and fold (when a fold operation is applied with an associative funct
 We aim to implement an EDSL which generates multiple equivalent by construction programs that are run through
 a cost model, the program with the best cost model is then to be selected to be streamed to a FPGA.
 
-Even though better performance is likely to come from parallelizing as much as possible the
+Even though better performance is likely to come from parallelizing operations as much as possible; the
 circuits that need to be generated to support the specified parallelization may be too large to 
 fit onto the specified FPGA. This is one of the main reasons we use a cost model to select the
 program to use.
