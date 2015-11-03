@@ -18,7 +18,7 @@ assertNotEq g e = if not (g == e)
 testRedDim : IO ()
 testRedDim = assertEq (redDim arr) reducedArr
 
-  where arr : Vect 3 (Vect 3 Int)
+  where arr : Array [3, 3] Int
         arr = [[2,3,7], [4,2,6], [5,7,9]]
 
         reducedArr : Array [9] Int
@@ -29,7 +29,7 @@ testRedDim = assertEq (redDim arr) reducedArr
 testIncDim : IO ()
 testIncDim = assertEq (incDim arr) incArr
 
-  where arr : Vect (2 * 2) Int
+  where arr : Array [2 * 2] Int
         arr = [2, 3, 4, 5]
 
         incArr : Array [2,2] Int
@@ -45,16 +45,23 @@ testIncDimFactor = assertEq (incDim $ reshapeByFactor 3 arr) incArr
           incArr : Array [3, 1] Int
           incArr = [[27], [10], [2]]
 
-          --test : Array [3 * 1] Int
-          --test = reshapeByFactor 3 arr      
 
-          --test2' : Array [3, 1] Int
-          --test2' = incDim $ reshapeByFactor 3 arr
+-- Test reducing dimensions, and then increasing
+-- results in the same initial Array
+testRedInc : IO ()
+testRedInc = assertEq (incDim $ redDim arr') arr'
+ 
+  where arr' : Array [3, 3] Int
+        arr' = [[1,3,7], [4,2,6], [5,7,9]]
 
 
+-- Test increasing dimensions and then reducing
+-- results in the same initial Array
 testIncRed : IO ()
-testIncRed = assertEq 2 2 -- (redDim $ incDim arr) arr
-
- where arr : Array [3 * 1] Int
+testIncRed = assertEq (redDim $ incDim $ reshapeByFactor 3 arr) arr
+             
+ where arr : Array [3] Int
        arr = [27, 10, 2]
+
+
 

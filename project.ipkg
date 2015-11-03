@@ -4,4 +4,5 @@ sourcedir = src
 modules = TypeTrans.AST, TypeTrans.Array, Tests.Array
 
 tests = Tests.Array.testRedDim, Tests.Array.testIncDim, 
-        Tests.Array.testIncDimFactor, Tests.Array.testIncRed
+        Tests.Array.testIncDimFactor, Tests.Array.testIncRed,
+        Tests.Array.testRedInc
