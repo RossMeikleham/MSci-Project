@@ -101,13 +101,12 @@ incDim v {m = S r} {n} =
 -- the same except showing that the most outer dimension
 -- is comprised of 2 factors multiplied together
 
-
 -- Proof dividing 0 by a non zero number gives 0
 total
 divZProof : (m : Nat) -> (nz : Not (m = Z)) -> divNatNZ 0 m nz = 0
 divZProof Z nz = void (nz Refl)
 divZProof (S Z) _ = Refl
-divZProof (S (S n)) nz = cong (divZProof (S n) SIsNotZ)
+divZProof (S (S n)) _ = Refl  
 
 
 -- Proof modulo 0 by a non zero number gives 0
@@ -115,7 +114,7 @@ total
 modZProof : (m : Nat) -> (nz : Not (m = Z)) -> modNatNZ 0 m nz = 0
 modZProof Z nz = void (nz Refl)
 modZProof (S Z) _ = Refl
-modZProof (S (S n)) nz  = cong (modZProof (S n) SIsNotZ)
+modZProof (S (S n)) _ = Refl 
 
 
 -- Proof of the Quotient Remainder theorem for the specific
