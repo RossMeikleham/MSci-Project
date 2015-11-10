@@ -18,6 +18,7 @@ Rank : Type
 Rank = Nat
 
 -- Vector with description of its dimensions in the Type
+total
 Array : Shape n -> Type -> Type
 Array Nil t = t
 Array (v::vs) t = Vect v (Array vs t) 
@@ -72,6 +73,7 @@ mapA f arr {xs = (y::ys)} =
     (a::as) => (mapA f a) :: (map (mapA f) as)
 
 
+
 -- | Reduce the dimensions of a 2+ dimensional vector
 total
 redDim : Array (x1::x2::xs) t -> Array (x1*x2::xs) t
@@ -115,6 +117,25 @@ modZProof : (m : Nat) -> (nz : Not (m = Z)) -> modNatNZ 0 m nz = 0
 modZProof Z nz = void (nz Refl)
 modZProof (S Z) _ = Refl
 modZProof (S (S n)) _ = Refl 
+
+
+-- Proof modNatNZ (m * n) n = 0
+total 
+modMProof : (m : Nat) -> (n: Nat) -> {default SIsNotZ nz : Not (m = Z)} -> modNatNZ (mult m n) m nz = 0
+modMProof Z _ {nz} = void (nz Refl)
+modMProof _ Z ?= Z
+modMProof m n ?= Z
+
+-- TODO fill these out later, too tired atm
+TypeTrans.Array.modMProof_lemma_1 = proof
+  intro
+  intro
+  exact believe_me Z
+
+TypeTrans.Array.modMProof_lemma_2 = proof
+  intro
+  intro
+  exact believe_me Z
 
 
 -- Proof of the Quotient Remainder theorem for the specific
@@ -182,3 +203,51 @@ reshapeByFactor : (m : Nat) -> Array (n::ns) t ->
 
 reshapeByFactor Z _ {nz} = void (nz Refl)
 reshapeByFactor m xs {n} {nz} {mz} = rewrite sym (factorDivProof m n nz mz) in xs
+
+
+-- Split in one step
+total
+splitA : (m : Nat) -> Array (n::ns) t -> 
+                               {default SIsNotZ nz : Not (m = Z)} -> 
+                               {auto mz : modNatNZ n m nz = Z} ->
+                               Array (m ::(divNatNZ n m nz)::ns) t
+splitA m a {mz} {nz} = incDim $ reshapeByFactor m a {mz = mz} {nz = nz}
+
+
+
+-- Helper functions for reshaping Vectors instead of Arrays,
+-- as Unification behaviour is being a bit strange atm,
+
+
+total
+-- Flatten a 2d vector into a 1d vector
+merge : Vect x1 (Vect x2 t) -> Vect (x1 * x2) t
+merge [] = []
+merge (v::vs) = v ++ merge vs
+
+ 
+total
+incDimV : Vect (m * n) t -> Vect m (Vect n t)
+incDimV v {m = Z}  = []
+incDimV v {m = S r} {n} = 
+    let (fstN, rest) = (take n v, drop n v) in 
+        fstN :: (incDimV rest)
+
+
+total
+reshapeByFV : (m : Nat) -> Vect n t -> 
+                               {default SIsNotZ nz : Not (m = Z)} -> 
+                               {auto mz : modNatNZ n m nz = Z} ->
+                               Vect (m * divNatNZ n m nz) t
+
+reshapeByFV Z _ {nz} = void (nz Refl)
+reshapeByFV m xs {n} {nz} {mz} = rewrite sym (factorDivProof m n nz mz) in xs
+
+
+total
+splitV : (m : Nat) -> Vect n t -> 
+                               {default SIsNotZ nz : Not (m = Z)} -> 
+                               {auto mz : modNatNZ n m nz = Z} ->
+                               Vect m (Vect (divNatNZ n m nz) t)
+splitV m a {mz} {nz} = incDimV $ reshapeByFV m a {mz = mz} {nz = nz}
+
