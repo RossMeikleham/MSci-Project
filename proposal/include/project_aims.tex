@@ -1,0 +1,29 @@
+\section{Project Aims}
+The main aim of this project is to design a framework which acts as an intermediate stage in HDL synthesis from Fortran code onto
+an FPGA. We restrict the framework to using a pure functional approach; representing a program as vector structures operated
+on with a combination of element processing functions with map, fold, and zip operations.
+
+This approach allows us to perform type transformations on the computations to tune the amount of parallelism
+whilst still preserving the results of the computations. 
+
+We aim to model the framework as an EDSL (Embedded Domain Specific Language); this saves the tedious work
+of having to impelent a custom DSL (Domain Specific Language) for this specific purpose, allowing us to use the 
+syntax and of the language used to implement the framework. This also has the added benefit of being able to interpret 
+these programs on a typical desktop computing platform which can be useful for testing purposes before transforming into a 
+HDL. 
+
+We also aim to implement a rudementary cost model which should be able to be replaced with more complex
+cost models in the future. Each given function has a given performance and space cost, represented as integers. 
+The lower the integer the lower the performance cost, and vice versa. The same goes for the space cost. 
+For example given a function with performance cost p, and space cost s which is being mapped on over
+a 1 dimensional vector with \textbf{n} elements; performing the map entirely in parallel would incur a performance
+cost of \textbf{p}, and space cost of \textbf{n * s}. Performing the map sequentially would incur a performance cost of
+\textbf{n * p}, and a space cost of \textbf{s}. A higher degree of paralleisation increases the space cost but reduces
+the performance cost, a lower degree of paralleisation reduces the space cost but increases the 
+performance cost.
+
+Another aim is to also be able to create an interface for converting the optimal program for the given cost model 
+into another format, such as a possible bytecode format which is then itself processed and converted to a HDL.
+
+The focus of this project isn't on translating Fortran code into the EDSL, or directly translating the optimal program 
+into a HDL.

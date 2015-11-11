@@ -1,0 +1,48 @@
+\section{Background Reading}
+
+\subsection{High Level Synthesis Tools}
+
+This section is on tools which convert high level programming languages into a HDL.
+
+%\subsubsection{SystemC} 
+%SystemC is a modelling platform which consists of a set of C++ classes and macros which 
+%provide an event-driven simulation interface (see also discrete event simulation). These facilities enable a designer to simulate concurrent processes, each described using plain C++ syntax. SystemC processes can communicate in a simulated real-time environment, using signals of all the datatypes offered by C++, some additional ones offered by the SystemC library, as well as user defined. In certain respects, SystemC deliberately mimics the hardware description languages VHDL and Verilog, but is more aptly described as a system-level modeling language.
+%
+
+
+\subsection{Type Transformations}
+
+
+\subsection{Dependently Typed Languages}
+
+Dependently typed languages can give extremely powerful compile time guarantees, and ar
+
+In a depdently typed programming language types are a first class language construct.
+%Figure \
+For example this allows us to define a list with size, using Idris syntax: 
+
+
+\inputIdrisListing[caption={Vect definition in Idris}, label=idrVectDef, float=htp]{code/vectDef.idr}
+
+We define a function `fn` which takes a Vector of size
+n, and returns a type Vector of size n + 1 as follows:
+
+fn : Vect n a -> Vect (n + 1) a
+
+At compile time Idris enforces that the Vector returned must
+contain exactly 1 element more than the Vector passed in.
+
+c
+
+Dependently typed languages allow
+This allows us to create correct by construction 
+
+
+\subsubsection{Idris}
+
+Idris is a dependently typed propgramming language
+
+\subsubsection{Coq}
+
+
+\subsubsection{Agda}

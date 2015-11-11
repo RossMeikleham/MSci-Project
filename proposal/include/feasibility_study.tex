@@ -1,0 +1,38 @@
+\section{Feasibility Study}
+
+
+We define the Shape of a Vector as
+an Idris Vect of given number dimensions
+
+
+We use this shape to define the Vector type,
+this follows the defintion from [] as a 0 dimensional
+Vector of type t is simply a single variable of type t.
+
+\inputIdrisListing{code/vector.idr}
+
+
+
+\subsection{Vector Functions}
+
+
+From our Vector definition it's trivial to define the singleton function
+as a function taking a 0 dimensional vector and mapping it to a 1 dimensional
+vector, as well as it's inverse function as follows:
+
+\inputIdrisListing{code/singleton.idr}
+
+
+Taking a given Vector which has 2 or more dimensions, we can decrease 
+the dimensionality by 1 by concatonating all the Sub-Vectors as follows
+\inputIdrisListing{code/redDim.idr}
+This results in a Vector with a dimensionality of one less than the input Vector,
+with the same elements as the input Vector, where ordering is
+also preserved. 
+
+
+Taking a given Vector which has 1 or more dimensions, in which the most "outer" dimension is
+made up of n * m elements, where n, m $\in \mathbb{N}$; we can increase the dimensionality of
+the given Vector by 1 by splitting the Vector at each n Sub-Vectors which results in m lots of
+n sub vectors. 
+\inputIdrisListing{code/incDim.idr}

@@ -39,7 +39,12 @@ data Expr : (Vect xs TypeT) -> TypeT -> Type where
   Var : HasType i G t -> Expr G t
   Val : (x : Int) -> Expr G TyInt 
   Map : MapVariant -> Expr G (TyFun a b) -> Expr G (TyVect n a) -> Expr G (TyVect n b)
+
+  -- Treat Composition as Concatonation of multiple Applys in a row
+  -- Apply f (Apply g o)  is a composition of f and g, can be used for
+  -- map streaming optimisation
   Apply : Expr G (TyFun a b) -> Expr G a -> Expr G b
+  Let : Expr (a :: gam) (Val () :: gam’) (R t) -> Expr gam gam’ t
   
   FoldL : FoldVariant -> Expr G (TyFun a (TyFun b a)) -> 
                           Expr G a  -> Expr G (TyVect n b) -> Expr G a
@@ -105,23 +110,53 @@ interp env (UnOp op x) = op (interp env x)
 interp env (Merge xs) = merge $ interp env xs 
 interp env (Split m xs {nz} {mz}) = splitV m {nz} {mz} $ interp env xs
 
+mkLam : TTName -> Expr (t::g) t' -> Expr g (TyFun t t')
+mkLam _ body = Lambda body
 
+-- Specify structures for DSL
+dsl expr
+  lambda = mkLam
+  variable = Var
+  index_first = Stop
+  index_next = Pop
+  variable = Var
+
+
+pure : Expr G a -> Expr G a
+pure = id
+
+(<$>) : (f : Lazy (Expr G (TyFun a t))) -> Expr G a -> Expr G t
+(<$>) f a = Apply f a
 
 -- Examples:
+syntax "map" [f] [xs] = Map MSeq f xs
+syntax [x] "+" [y] = Op (+) x (Val y)
+
+
 
 -- AST for lambda function which adds 3 to a given integer
 add3 : Expr G (TyFun TyInt TyInt)
 add3 = Lambda (Op (+) (Var Stop) (Val 3))
 
+add3Pretty : Expr G (TyFun TyInt TyInt)
+add3Pretty = expr (\x => Op (+) (Val 3) x)
+
+add3Pretty2 : Expr G (TyFun TyInt TyInt)
+add3Pretty2 = expr (\x => x + 3)
 
 -- AST for lambda function which adds 2 integers
 add : Expr G (TyFun TyInt (TyFun TyInt TyInt))
 add = Lambda (Lambda (Op (+) (Var Stop) (Var (Pop Stop))))
 
+addPretty : Expr G (TyFun TyInt (TyFun TyInt TyInt))
+addPretty = expr (\x,y => (Op (+) x y))
 
 -- AST for simple mapping over list
 mapAdd3 : Expr G (TyFun (TyVect n TyInt) (TyVect n TyInt))
 mapAdd3 = Lambda (Map MSeq (add3) (Var Stop)) 
+
+mapAdd3Pretty : Expr G (TyFun (TyVect n TyInt) (TyVect n TyInt))
+mapAdd3Pretty = expr (\xs => map add3 xs) 
 
 
 -- AST for simple merge and mapping

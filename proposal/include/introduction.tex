@@ -1,0 +1,20 @@
+Idris is a depdendently types programming language.
+Essentially types are a first class language construct.
+
+Define types with size e.g. a list with size
+
+```
+Data Vect : Nat -> Type -> Type
+Nil : Vect 0 a
+(::) : a -> Vect n a -> Vect (n + 1) a
+```
+
+We define a function `fn` which takes a Vector of size
+n, and returns a type Vector of size n + 1 as follows:
+
+fn : Vect n a -> Vect (n + 1) a
+
+At compile time Idris enforces that the Vector returned must
+contain exactly 1 element more than the Vector passed in.
+
+c
