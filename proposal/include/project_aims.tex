@@ -15,7 +15,7 @@ HDL.
 We also aim to implement a rudementary cost model which should be able to be replaced with more complex
 cost models in the future. Each given function has a given performance and space cost, represented as integers. 
 The lower the integer the lower the performance cost, and vice versa. The same goes for the space cost. 
-For example given a function with performance cost p, and space cost s which is being mapped on over
+For example given a function with performance cost \textbf{p}, and space cost \textbf{s} which is being mapped on over
 a 1 dimensional vector with \textbf{n} elements; performing the map entirely in parallel would incur a performance
 cost of \textbf{p}, and space cost of \textbf{n * s}. Performing the map sequentially would incur a performance cost of
 \textbf{n * p}, and a space cost of \textbf{s}. A higher degree of paralleisation increases the space cost but reduces

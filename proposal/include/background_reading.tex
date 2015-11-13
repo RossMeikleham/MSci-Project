@@ -11,38 +11,93 @@ This section is on tools which convert high level programming languages into a H
 
 
 \subsection{Type Transformations}
-
+Vanderbauwhede \cite{transformations}. We define definition of a vector 
 
 \subsection{Dependently Typed Languages}
 
-Dependently typed languages can give extremely powerful compile time guarantees, and ar
+Dependently typed languages can give extremely powerful compile time guarantees, and many have facilities for
+verifying properties of programs through interactive theorem checkers or proof assistants. Types are a first class language 
+construct in that values can appear in types. The type systems
+in these languages are usually an extension of type systems found in purely functional languages such as ML or Haskell.
+However, a complication of a dependent type system is that type inference is no longer possible in
+many cases that would be possible in ML or Haskell like type systems \cite{practicalDependent}.
 
-In a depdently typed programming language types are a first class language construct.
-%Figure \
-For example this allows us to define a list with size, using Idris syntax: 
 
+listing ~\ref{idrVectDef} implements a list with size in a dependently typed language (more specifically in this case Idris) 
 
 \inputIdrisListing[caption={Vect definition in Idris}, label=idrVectDef, float=htp]{code/vectDef.idr}
 
-We define a function `fn` which takes a Vector of size
-n, and returns a type Vector of size n + 1 as follows:
+Notice that the type itself contains a natural number to represent the size, 
+two Vects are not of the same type if their sizes differ. Appending a single element to the Vect increases
+its size by 1.
 
-fn : Vect n a -> Vect (n + 1) a
+To illustate some of the benefits of having the size in the type listing ~\ref{vectAppendDef} defines an append function 
+which takes two Vects and appends the second one to the first one, 
+creating a Vect which size is equivalent to the sum of the sizes of the two Vects.
 
-At compile time Idris enforces that the Vector returned must
-contain exactly 1 element more than the Vector passed in.
+\inputIdrisListing[caption={Append definition of Vects in Idris}, label=vectAppendDef, float=htp]{code/vectAppend.idr}
 
-c
+The Idris compiler enforces that the function returns a Vect which size is exactly the size of the first Vect 
+added to the size of the second Vect.
 
-Dependently typed languages allow
-This allows us to create correct by construction 
+Implementing the EDSL in a dependently typed language allows us to verify at compile time that the vector
+transformations still preserve the results of the computations.
 
+We explore the three main dependently typed languages to select which one is most appropriate to
+use for this project.
 
 \subsubsection{Idris}
 
-Idris is a dependently typed propgramming language
+Idris\cite{idris} is a dependently typed programming language which features Haskell-like syntax, and tactic
+based theorem proving. Idris was designed to be used for practical general purpose programming, and puts high level
+programming ahead of theorem proving. As a result of this it has high level features such as type classes and list 
+comprehensions. 
 
-\subsubsection{Coq}
+Like Haskell it also includes do notation for chaining together monadic computations, making them more readable. 
+The compiler is designed to perform many performance improving
+optimisations, most notably applying partial evaluation whenever possible. This can be useful for efficiently implementing
+EDSLs\cite{edslidris}. Idris also has support for implementing EDSLs\cite{edslidris2}, such as allowing to extend the syntax of the language.   
+
+A primary goal of Idris is to generate efficient code, and it's main back end compiles to c. During compilation
+Idris code can be transformed to a number of intermediate languages that can be used to create custom back ends. 
+Currently there exists a number of backend implementations, most noteably LLVM, Javascript, and Java.
+
+Idris currently at the time of writing does not have a stable release (the current release version being 0.9.20) which
+may cause some issues in development, mainly that code written for the current release may not be compatible with future 
+releases of the language.
 
 
 \subsubsection{Agda}
+
+Agda\cite{agda} is a dependently typed programming language with similar syntax to Haskell, and a similar
+type system to Idris..
+Unlike both Idris and Coq Agda does not have support for tactics, so proofs have to be written
+in a functional style. Agda is a total functional language\cite{total} (i.e. every function must terminate, and every function
+must cover all possible values for its input type(s)). As a result of this Agda is not turning complete, and
+recursive functions must match a schema which can be proven to terminate.  
+
+Agda was mainly designed with theorem prooving in mind, and does not contain a lot of the "high level" 
+features present in Idris.
+
+Agda's main backend compiles down to Haskell.
+
+
+\subsubsection{Coq}
+Coq\cite{coq} is a proof assistant which implements a dependently typed programming language called Gallina, 
+thus The main focus of Coq is for theorem prooving rather than for general purpose programming. It has ML-like syntax. 
+Coq Programs can be extracted to a more conventional programming language such as Haskell, this allows for verifying properties of programs
+written in mainstream languages.
+Coq, like Agda is a total functional language and as a result is not turing complete. 
+
+Coq, unlike both Idris and Agda doesn't support induction-recursion\cite{inductionrecur} and as a result it's not
+possible to define mutually recursive types and functions.
+
+
+
+
+
+
+
+
+
+

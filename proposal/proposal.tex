@@ -8,6 +8,11 @@
 \usepackage{amsfonts}
 
 
+\lstset{
+  basicstyle=\small\ttfamily,
+  frame=lrtb,
+  numbers=left
+}
 
 \begin{document}
 
@@ -32,7 +37,11 @@
 \input{include/background_reading.tex}
 \input{include/feasibility_study.tex}
 
-%\bibliographystyle{abbrv}
-%#\bibliography{bib} 
+%Biliography
+
+\emergencystretch=1em
+\raggedright
+\bibliographystyle{ieeetr}
+\bibliography{bib}
 
 \end{document}

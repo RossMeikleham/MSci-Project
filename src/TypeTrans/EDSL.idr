@@ -21,6 +21,8 @@ interpType TyBool = Bool
 interpType (TyFun i o) = interpType i -> interpType o
 interpType (TyVect i t) = Vect i (interpType t)
 
+
+
 -- Locate "base"/primitive type e.g. int, bool
 --total 
 --baseType : TypeT -> TypeT
@@ -44,7 +46,7 @@ data Expr : (Vect xs TypeT) -> TypeT -> Type where
   -- Apply f (Apply g o)  is a composition of f and g, can be used for
   -- map streaming optimisation
   Apply : Expr G (TyFun a b) -> Expr G a -> Expr G b
-  Let : Expr (a :: gam) (Val () :: gam’) (R t) -> Expr gam gam’ t
+  --Let : Expr (a :: gam) (Val () :: gam’) (R t) -> Expr gam gam’ t
   
   FoldL : FoldVariant -> Expr G (TyFun a (TyFun b a)) -> 
                           Expr G a  -> Expr G (TyVect n b) -> Expr G a
@@ -133,7 +135,6 @@ syntax "map" [f] [xs] = Map MSeq f xs
 syntax [x] "+" [y] = Op (+) x (Val y)
 
 
-
 -- AST for lambda function which adds 3 to a given integer
 add3 : Expr G (TyFun TyInt TyInt)
 add3 = Lambda (Op (+) (Var Stop) (Val 3))
@@ -200,8 +201,14 @@ interpStuff = do
     print $ interp [] mapAdd3 [1,2,3,4]
     print v2d
 
+    print v3
+
+
   where v2d : Vect 3 Int
         v2d = interp [] map2dAdd3 [[1,1,1]]
+
+        v3 : Int
+        v3 = interp [] add3 3
 }
 
 

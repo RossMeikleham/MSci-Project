@@ -1,202 +1,141 @@
-@article{GPRM,
-  author    = "Tousimojarad, Ashkan and Vanderbauwhede, Wim",
-  year      = "2013",
-  title     = {{The Glasgow Parallel Reduction Machine: Programming Shared-memory Many-core Systems using Parallel Task Composition}},
-  journal    = "Electronic Proceedings in Theoretical Computer Science",
-  volume    = "137",
-  pages     = "79-94",
+@article{transformations,
+  author = {Vanderbauwhede, Wim},
+  title = {Inferring Program Transformations from Type Transformations for Partitioning of Ordered Sets},
+  year = {2015}
+}	
+
+
+@inproceedings{practicalDependent,
+ author = {Xi, Hongwei and Pfenning, Frank},
+ title = {Dependent Types in Practical Programming},
+ booktitle = {Proceedings of the 26th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages},
+ series = {POPL '99},
+ year = {1999},
+ isbn = {1-58113-095-3},
+ location = {San Antonio, Texas, USA},
+ pages = {214--227},
+ numpages = {14},
+ url = {http://doi.acm.org/10.1145/292540.292560},
+ doi = {10.1145/292540.292560},
+ acmid = {292560},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+}  
+
+
+
+@article{idris,
+  author = {Brady, Edwin},
+  title = {Idris, a general-purpose dependently typed programming language: Design and implementation},
+  journal = {Journal of Functional Programming},
+  volume = {23},
+  issue = {05},
+  month = {9},
+  year = {2013},
+  issn = {1469-7653},
+  pages = {552--593},
+  numpages = {42},
+  doi = {10.1017/S095679681300018X},
+  URL = {http://journals.cambridge.org/article_S095679681300018X},
 }
 
-
-@article{cilk++,
- author = {Leiserson, Charles E.},
- title = {{The Cilk++ Concurrency Platform}},
- journal = {The Journal Of Supercomputing},
- volume = {51},
- number = {3},
- month = {March},
+@article{edslidris,
+ author = {Brady, Edwin C. and Hammond, Kevin},
+ title = {Scrapping Your Inefficient Engine: Using Partial Evaluation to Improve Domain-specific Language Implementation},
+ journal = {SIGPLAN Not.},
+ issue_date = {September 2010},
+ volume = {45},
+ number = {9},
+ month = sep,
  year = {2010},
- pages = {244--257},
- publisher = {Kluwer Academic Publishers},
- address = {Hingham, MA, USA},
+ issn = {0362-1340},
+ pages = {297--308},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/1932681.1863587},
+ doi = {10.1145/1932681.1863587},
+ acmid = {1863587},
+ publisher = {ACM},
+ address = {New York, NY, USA},
 } 
 
-@Misc{cilk,
-title = {{Cilk Plus Tutorial}},
-howpublished = {\url{https://www.cilkplus.org/cilk-plus-tutorial/}},
-note = {Accessed: 2015-03-15}
-}
 
-@Misc{cilkarray,
-title = {{Cilk Plus Array Notation}},
-howpublished = {\url{https://www.cilkplus.org/tutorial-array-notation}},
-note = {Accessed: 2015-03-15}
-}
-
-@Misc{cilkfaq,
-title ={{Cilk Plus FAQ}},
-howpublished = {\url{https://www.cilkplus.org/faq}},
-note = {Accessed: 2015-03-15}
-}
-
-@Misc{cilkfor,
-title = {{{Cilk Plus \textit{cilkfor} documentation}}},
-howpublished = 
-    {\url{https://software.intel.com/sites/products/documentation/doclib/iss/2013/compiler/cpp-lin/GUID-ABF330B0-FEDA-43CD-9393-48CD6A43063C.htm}},
-note = {Accessed: 2015-03-15}
+@incollection{edslidris2,
+ year={2012},
+ isbn={978-3-642-27693-4},
+ booktitle={Practical Aspects of Declarative Languages},
+ volume={7149},
+ series={Lecture Notes in Computer Science},
+ editor={Russo, Claudio and Zhou, Neng-Fa},
+ doi={10.1007/978-3-642-27694-1_18},
+ title={Resource-Safe Systems Programming with Embedded Domain Specific Languages},
+ url={http://dx.doi.org/10.1007/978-3-642-27694-1_18},
+ publisher={Springer Berlin Heidelberg},
+ keywords={Dependent Types; Resource Usage; (Embedded) Domain-Specific Languages; Program Verification},
+ author={Brady, Edwin and Hammond, Kevin},
+ pages={242-257},
+ language={English}
 }
 
 
-@article{openmp,
-    Author = {Dagum, Leonardo and Menon, Ramesh},
-    Journal = {Computational Science \& Engineering, IEEE},
-    Number = {1},
-    Pages = {46--55},
-    Publisher = {IEEE},
-    Title = {{OpenMP: an industry standard API for shared-memory programming}},
-    Volume = {5},
-    Year = {1998}
+@Article{total,
+  author =     "D. A. Turner",
+  title =      "Total Functional Programming",
+  abstract =   "The driving idea of functional programming is to make programming more closely related to mathematics. A program in a functional language such as Haskell or Miranda consists of equations which are both computation rules and a basis for simple algebraic reasoning about the functions and data structures they define. The existing model of functional programming, although elegant and powerful, is compromised to a greater extent than is commonly recognised by the presence of partial functions. We consider a simple discipline of total functional programming designed to exclude the possibility of non-termination. Among other things this requires a type distinction between data, which is finite, and codata, which is potentially infinite.",
+  journal =    j-jucs,
+  year =       "2004",
+  volume =     "10",
+  number =     "7",
+  pages =      "751--768",
+  date =       "2004-07-28",
+  month =      "jul",
+  url =        {http://www.jucs.org/jucs_10_7/total_functional_programming}
 }
 
 
-@article{openmp3,
- author = {Ayguad{\'e}, Eduard and Copty, Nawal and Duran, Alejandro and Hoeflinger, Jay and Lin, Yuan and Massaioli, Federico and Teruel, Xavier and Unnikrishnan, Priya and Zhang, Guansong},
- title = {{The Design of OpenMP Tasks}},
- journal = {IEEE Transactions. Parallel Distributed Systems},
- volume = {20},
- number = {3},
+@inproceedings{agda,
+ author = {Norell, Ulf},
+ title = {Dependently Typed Programming in Agda},
+ booktitle = {Proceedings of the 6th International Conference on Advanced Functional Programming},
+ series = {AFP'08},
  year = {2009},
- pages = {404--418},
- publisher = {IEEE Press},
-}
-
-@Misc{openmptraps,
-author = {Alexy Kolosov and Evgeniy Ryzhkov and Andrey Karpov},
-title = {{32 OpenMP traps for C++ developers}},
-howpublished = {\url{https://software.intel.com/en-us/articles/32-openmp-traps-for-c-developers}},
-note = {Accessed: 2015-03-15}
-}
-
-@article{tbb,
- author = {Pheatt, Chuck},
- title = {{Intel\textregistered{} Threading Building Blocks}},
- journal = {J. Comput. Sci. Coll.},
- volume = {23},
- number = {4},
- year = {2008},
- pages = {298--298},
+ isbn = {3-642-04651-7, 978-3-642-04651-3},
+ location = {Heijen, The Netherlands},
+ pages = {230--266},
+ numpages = {37},
+ url = {http://dl.acm.org/citation.cfm?id=1813347.1813352},
+ acmid = {1813352},
+ publisher = {Springer-Verlag},
+ address = {Berlin, Heidelberg},
 } 
 
+@Article{coq,
+  author = "Chlipala Adam",
+  year = "2010",
+  title = "An Introduction to Programming and Proving with Dependent Types in Coq.",
+  journal= "Journal of Formalized Reasoning",
+  volume = "3",
+  number = "2",
+  pages = {1--93}, 
+  url = {http://adam.chlipala.net/papers/CpdtJFR/}
+ }
 
-@inproceedings{tbbschedule,
-  author = {Gilberto Contreras and Margaret Martonosi},
-  title = {{Characterizing and Improving the Performance of Intel Threading Building Blocks}},
-  booktitle = {Proceedings of the 2008 International Symposium on Workload Characterization},
-  year = {2008},
+
+
+@article{inductionrecur,
+author = {Dybjer,Peter},
+title = {A general formulation of simultaneous inductive-recursive definitions in type theory},
+journal = {The Journal of Symbolic Logic},
+volume = {65},
+issue = {02},
+month = {6},
+year = {2000},
+issn = {1943-5886},
+pages = {525--549},
+numpages = {25},
+doi = {10.2307/2586554},
+URL = {http://journals.cambridge.org/article_S0022481200012044},
 }
 
 
-@Misc{tbbbenefits,
-title = {{Intel Thread Building Blocks Benefits}},
-howpublished = {\url{https://software.intel.com/en-us/node/506043}},
-note = {Accessed: 2015-03-15}
-}
 
 
-@article{wool,
- author = {Fax{\'e}n, Karl-Filip},
- title = {Wool-A Work Stealing Library},
- journal = {SIGARCH Computer Architecture News},
- volume = {36},
- number = {5},
- year = {2009},
- pages = {93--100},
-} 
-
-
-@book{halting,
-    pages = {70--71},
-    publisher = {Dover},
-    author = {Martin Davis},
-    title = {Computability \& Unsolvability},
-    year = {1958},
-    note = {ISBN 978048661471}
-}
-
-
-@TECHREPORT{parsec,
-author      = {Daan Leijen and Erik Meijer},
-title       = {{Parsec: Direct Style Monadic Parser Combinators for the Real World}},
-institution = {Department of Computer Science, Universiteit Utrecht},
-number      = {UU-CS-2001-27},
-year        = 2001
-}
-
-
-@Misc{cabal,
-title = {{The Haskell Cabal}},
-howpublished = {\url{https://www.haskell.org/cabal/}},
-note ={Accessed: 2015-03-11}
-}
-
-@Misc{hunit,
-title = {{HUnit website}},
-howpublished = {\url{http://hunit.sourceforge.net/}},
-note = {Accessed: 2015-03-18}
-}
-
-
-@Misc{hpc,
-title = {{Haskell Program Coverage toolkit user guide}},
-howpublished = {\url{https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/hpc.html}},
-note = {Accessed: 2015-03-18}
-}
-
-@article{sccp,
-  author = {Mark N. Wegman and F. Kenneth Zadeck},
-  title = {{Constant propagation with conditional branches}},
-  journal = {ACM Transactions on Programming Languages and Systems},
-  volume = {13},
-  number = {2},
-  pages = {181--210},
-  year = {1991},
-  publisher = {ACM Press},
-  url = {http://doi.acm.org/10.1145/103135.103136}
-}
-
-
-@article{brandis94,
-  author = {Marc M. Brandis and Hanspeter M\"{o}ssenb\"{o}ck},
-  title = {{Single-pass generation of static single-assignment form for
-                  structured languages}},
-  journal = {ACM Transactions on Programming Languages and Systems},
-  volume = {16},
-  number = {6},
-  year = {1994},
-  pages = {1684--1698},
-  url = {http://doi.acm.org/10.1145/197320.197331}
-}
-
-
-@book{optimize,
-  Author = {Steven Muchnick},
-  Title = {{Advanced Compiler Design and Implementation}},
-  Publisher = {Morgan Kaufmann},
-  Year = {1997},
-  note = {ISBN 1558603204}
-}
-
-
-@article{GPRMBench,
-  author    = "Tousimojarad, Ashkan and Vanderbauwhede, Wim",
-  title     = {{Number of Tasks, not Threads, is Key}},
-  journal    = "in Parallel, Distributed, and Network-Based Processing (PDP). IEEE 23rd Euromicro International Conference on. At
-                Turku, Finland",
-}
-
-
-@Misc{yaml,
-title = {{YAML website}},
-howpublished = {\url{http://yaml.org/}},
-note = {Accessed: 2015-03-18}
-}
