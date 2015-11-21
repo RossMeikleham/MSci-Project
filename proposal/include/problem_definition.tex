@@ -1,33 +1,35 @@
 \section{Problem Description}
 
-We want to exploit the parallelism of scientific Fortran code without
-having to modify the code itself. There are a multitiude of ways to do this but
-we want to focus on using FPGAs (Field Programmable Gate Arrays). 
+We want to exploit the parallelism of sequential scientific Fortran code without
+having to heavily modify the code itself. There are a multitude of ways to do this but
+we focus on using FPGAs (Field Programmable Gate Arrays). 
 
-An FPGA is an integrated circuit that contains an array of programmable logic blocks and interconnects which
+A FPGA is an integrated circuit that contains an array of programmable logic blocks and interconnects which
 wire the blocks together. These logic blocks operate in parallel and are programmed using a Hardware Description Language(HDL)
-such as Verilog or VHDL. Currently designing programs in a HDL is a tedious and error prone process. 
-However, code that is highly parallelisable can result in significant performance gains when converted to
-run on an FPGA.
+such as Verilog or VHDL. Currently designing programs in a HDL is a tedious and error prone process, especially
+as programs start to become more complex \cite{complex}.
+However, code that is highly parallelizable can result in significant performance gains when synthesized to
+run on a FPGA.
 
-The main focus in research on synthesising sequential code to HDL has been on creating compilers which generate
-HDL code from C rather than Fortran. The goals of many of these compilers are focused on reducing programming 
-time and software maintenance issues rather than optimising for performance. The compilers that do
-focus on paralellisation essentially parallelise as much as possible, this is not always ideal
-as there may be other requirements such as the overall size of the circuits generated.  
+The main focus in research on synthesizing sequential code to HDL has been on creating compilers which generate
+HDL code from C, C++, and MATLAB rather than Fortran. The goals of many of these compilers are focused on reducing programming 
+time and software maintenance issues rather than optimising for performance. Often, optimizing
+for space and architecture optimizations requires modifying of the original source code, and are not
+provided by the compilers themselves \cite{hlstools}.
 
-There is a multitude of ways to parallelise certain code, for example consider the following Fortran95 program
-which adds 1 to each element of a 12 element array.
+There can be a multitude of ways to parallelize certain sequential code, for example consider the Fortran95 program in
+listing~\ref{f95} which adds 1 to each element of a 12 element array.
 
-\lstinputlisting{code/loop.f95}
+\lstinputlisting[caption={F95 Loop}, label=f95, xleftmargin=4.0ex]{code/loop.f95}
 
 Considering that each array element is independent of one another during the adding operation
-it's entirely possible to perfom the addition of each element in parallel. We can tune how much
-we parallelise the array additition using factors of the size of the array. In this case the factors of 12 are 1, 2, 3, 4, 6, and 12.
+it's entirely possible to perform the addition of each element in parallel. We can tune how much
+we parallelize the array addition using factors of the size of the array. In this case the factors of 12 are 1, 2, 3, 4, 6, and 12.
 
 For each factor \textbf{f} of 12 there exists a factor \textbf{f'} such that \textbf{f * f'} = 12. Let \textbf{f} be the number of 
-circuits and \textbf{f'} be the number of additions performed by each circuit, increasing \textbf{f} increases the degree of 
-paralleisiation but also increases the total number of circuits required on the board to support this. 
+circuits and \textbf{f'} be the number of additions performed by each component, increasing \textbf{f} increases the degree of 
+parallelization but also increases the total area used on a FPGA board. 
 
-Given a cost model and a program we want to optimise the program with respect to the given cost model, this
-involves generating equivalent variants of the given program.
+Given a cost model and a program we want to optimise a program with respect to the given cost model, this
+involves generating equivalent variants of the given program, and then selecting the program which
+gives the best result from the given model to synthesize.

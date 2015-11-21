@@ -2,16 +2,74 @@
 
 \subsection{High Level Synthesis Tools}
 
-This section is on tools which convert high level programming languages into a HDL.
 
-%\subsubsection{SystemC} 
-%SystemC is a modelling platform which consists of a set of C++ classes and macros which 
-%provide an event-driven simulation interface (see also discrete event simulation). These facilities enable a designer to simulate concurrent processes, each described using plain C++ syntax. SystemC processes can communicate in a simulated real-time environment, using signals of all the datatypes offered by C++, some additional ones offered by the SystemC library, as well as user defined. In certain respects, SystemC deliberately mimics the hardware description languages VHDL and Verilog, but is more aptly described as a system-level modeling language.
-%
+\subsubsection{Handel-C}
+Handel-C\cite{Handel-C} is a subset of C with added non-standard extensions designed
+to target FPGAs. Some features of Handel-C include co-routines, concurrency and communication.
+The aim of Handel-C is to be an interface to hardware that's similar to a traditional imperative
+programming language, while allowing the programmer to exploit the natural concurrency provided in a 
+hardware environment \cite{Handel-C2}. 
+
+Synchronous communication between concurrent processes can be performed 
+via channels. Communication can also be performed between concurrent processes using a mechanism called signals,
+a process assigns a value to a signal which can be read by another signal in the same clock cycle.
+
+Parallelism in Handel-C has to be explicitly defined. 
+There is also no support for limiting shared access to variables; It's possible for two concurrent processes to write
+to the same register at the same time, which is undefined. It's also the programmers responsibility to ensure that shared access 
+to variables is handled correctly. 
 
 
-\subsection{Type Transformations}
-Vanderbauwhede \cite{transformations}. We define definition of a vector 
+
+
+\subsubsection{SystemC}
+SystemC\cite{systemc} was originally designed as a modelling language for modelling hardware in
+C++. It provides a set of modelling constructs that are similar to Verilog or VHDL.
+SystemC is made up a set of C++ classes and macros which allow designers to model
+systems at several abstraction levels and connect components together from different 
+abstraction levels \cite{systemc2}. SystemC is compatible with the C++, this allows for 
+simulations to be created by compiling the program with a C++ compiler.
+
+SystemC allows programmers to take advantage of object orientated programming for
+constructing components. This has many benefits; for example being able to separate
+independent components, composing different components, and reusing them \cite{systemc3}. 
+
+Like Handel-C, SystemC uses channels and signals to communicate between concurrent processes.
+
+
+
+\subsubsection{Xilinx AccelDSP}
+AccelDSP is a high level synthesis design tool which generates a hardware module that can be run
+on a Xilinx FPGA from a MATLAB specification \cite{accel}. It has the ability to optimize floating
+point operations by dynamically estimating the needed bit width and automatically converting floating
+point to fixed point.  
+
+AccelDSP partially allows for modifying space requirements by including features such as (partial) loop
+and matrix multiplication unrolling, pipelining and memory mapping.
+However, AccelDSP can only be used for streaming data applications and the MATLAB code 
+needs to be rewritten manually into a streaming loop \cite{hlstools}. Also AccelDSP is locked
+into only being able to work with Xilinx FPGAs, and cannot be used in FPGAs from other vendors.
+
+
+\subsubsection{Synphony C Compiler}
+The Symphony C Compiler\cite{syn} generates RTL implementations for ASICs and FPGAs
+from a subset of C/C++. Its focus is on parallelising single-threaded sequential code for
+synthesis. Most optimization options are set in the source code through the use of pragmas \cite{hlstools}.
+Other options such as the target platform and clock rate are set through the GUI or the
+compilation script. The compiler also attempts to perform optimizations by predicting
+area and timing results.
+
+
+\subsubsection{Catapult C}
+Catapult C\cite{catapult} accepts a subset of C, C++ and SystemC code. Its setup tool allows for specifying 
+a number of tuning options such as the target technology, clock rate, design constraints, as well as a number 
+of optimizations. Libraries are included to support a number of useful structures such as arbitrary width data types.
+Like SystemC, Catapult C simulations can be created by compiling the program with a C++ compiler. 
+It also supports keeping track of performance figures for each revision, allowing for manual tuning \cite{hlstools}.
+
+
+
+
 
 \subsection{Dependently Typed Languages}
 
@@ -23,15 +81,15 @@ However, a complication of a dependent type system is that type inference is no 
 many cases that would be possible in ML or Haskell like type systems \cite{practicalDependent}.
 
 
-listing ~\ref{idrVectDef} implements a list with size in a dependently typed language (more specifically in this case Idris) 
+listing ~\ref{idrVectDef} implements a list with size in Idris. 
 
-\inputIdrisListing[caption={Vect definition in Idris}, label=idrVectDef, float=htp]{code/vectDef.idr}
+\inputIdrisListing[caption={Vector definition in Idris}, label=idrVectDef, float=htp]{code/vectDef.idr}
 
 Notice that the type itself contains a natural number to represent the size, 
 two Vects are not of the same type if their sizes differ. Appending a single element to the Vect increases
 its size by 1.
 
-To illustate some of the benefits of having the size in the type listing ~\ref{vectAppendDef} defines an append function 
+To illustrate some of the benefits of having the size in the type listing ~\ref{vectAppendDef} defines an append function 
 which takes two Vects and appends the second one to the first one, 
 creating a Vect which size is equivalent to the sum of the sizes of the two Vects.
 
@@ -55,12 +113,12 @@ comprehensions.
 
 Like Haskell it also includes do notation for chaining together monadic computations, making them more readable. 
 The compiler is designed to perform many performance improving
-optimisations, most notably applying partial evaluation whenever possible. This can be useful for efficiently implementing
+optimizations, most notably applying partial evaluation whenever possible. This can be useful for efficiently implementing
 EDSLs\cite{edslidris}. Idris also has support for implementing EDSLs\cite{edslidris2}, such as allowing to extend the syntax of the language.   
 
 A primary goal of Idris is to generate efficient code, and it's main back end compiles to c. During compilation
 Idris code can be transformed to a number of intermediate languages that can be used to create custom back ends. 
-Currently there exists a number of backend implementations, most noteably LLVM, Javascript, and Java.
+Currently there exists a number of back end implementations, most notably LLVM, Javascript, and Java.
 
 Idris currently at the time of writing does not have a stable release (the current release version being 0.9.20) which
 may cause some issues in development, mainly that code written for the current release may not be compatible with future 
@@ -71,23 +129,23 @@ releases of the language.
 
 Agda\cite{agda} is a dependently typed programming language with similar syntax to Haskell, and a similar
 type system to Idris..
-Unlike both Idris and Coq Agda does not have support for tactics, so proofs have to be written
+Unlike both Idris and Coq, Agda does not have support for tactics, so proofs have to be written
 in a functional style. Agda is a total functional language\cite{total} (i.e. every function must terminate, and every function
-must cover all possible values for its input type(s)). As a result of this Agda is not turning complete, and
+must cover all possible values for its input type(s)). As a result of this Agda is not Turing complete, and
 recursive functions must match a schema which can be proven to terminate.  
 
-Agda was mainly designed with theorem prooving in mind, and does not contain a lot of the "high level" 
+Agda was mainly designed with theorem proving in mind, and does not contain a lot of the "high level" 
 features present in Idris.
 
-Agda's main backend compiles down to Haskell.
+Agda's main back end compiles down to Haskell.
 
 
 \subsubsection{Coq}
 Coq\cite{coq} is a proof assistant which implements a dependently typed programming language called Gallina, 
-thus The main focus of Coq is for theorem prooving rather than for general purpose programming. It has ML-like syntax. 
+thus The main focus of Coq is for theorem proving rather than for general purpose programming. It has ML-like syntax. 
 Coq Programs can be extracted to a more conventional programming language such as Haskell, this allows for verifying properties of programs
 written in mainstream languages.
-Coq, like Agda is a total functional language and as a result is not turing complete. 
+Coq, like Agda is a total functional language and as a result is not Turing complete. 
 
 Coq, unlike both Idris and Agda doesn't support induction-recursion\cite{inductionrecur} and as a result it's not
 possible to define mutually recursive types and functions.
@@ -95,9 +153,62 @@ possible to define mutually recursive types and functions.
 
 
 
+\subsection{Type Transformations on Vector Types}
+Type transformations on vector types are described in more detail by Vanderbauwhede \cite{transformations}.
+A type transformation is essentially a function applied to a value of a given type, which generates a value of 
+another type. For a function to be a type transformation it must also obey a set of rules on how
+the types are modified. 
 
+We use the following definition for a vector type:
 
+\begin{itemize}
+\item A vector type is a type containing a natural number \textbf{k}, and an arbitrary type \textbf{a}.  
+\item If \textbf{k} is greater than 0, the vector type represents a list of size \textbf{k} of type \textbf{a}.
+\item If \textbf{k} is equal to 0, the vector type is equivalent to the type \textbf{a}.
+\end{itemize}
 
+This definition is similar to the Vect type as shown in figure ~\ref{idrVectDef}. With the key difference being
+that this definition cannot have an empty vector, and that the type of an empty vector of a given
+type is equivalent to the type itself.
 
+There are three fundamental type transformations on vector types (as well
+as their respective inverse transformations) which are reshaping, mapping, and converting a type to a singleton vector. 
+These transformations modify the vector whilst still retaining some of the structural properties, mainly the ordering of elements,
+and the total amount of base elements contained in the vector.
 
+A program transformed into a combination of map, fold, and zip operations on a vector can be transformed
+using a series of these type transformations whilst still retaining the same computational results.
 
+We can transform the Fortran code from listing~\ref{f95} into this form by
+representing the array \textbf{A} as a 1 dimensional vector, and the addition on \textbf{A} as a map transformation:
+
+\begin{lstlisting}[language=Haskell, frame=none, numbers=none]
+C = map (+ 1) A
+\end{lstlisting}
+
+which is equivalent to:
+\begin{lstlisting}[language=Haskell, frame=none, numbers=none]
+C = map (+ 1) [1,2,3,4,5,6,7,8,9,10,11,12]
+\end{lstlisting}
+
+Using the singleton transformation, we can increase the dimension of \textbf{A} to 2, since
+the dimensionality of the vector is being increased, a repeated application of map is needed:
+\begin{lstlisting}[language=Haskell, frame = none, numbers= none]
+C = map (map (+ 1)) 
+    [[1,2,3,4,5,6,7,8,9,10,11,12]]
+\end{lstlisting} 
+
+We can then perform a reshape operation using the value 6, which is a factor of the size of the
+first dimension of A. This multiplies the size of the second dimension by 6, and divides the size
+of the first dimension by 6. The previous program is transformed into the following:
+\begin{lstlisting}[language=Haskell, frame=none, numbers=none]
+C = map (map (+ 1)) 
+    [[1,2], [3,4], [5,6], 
+     [7,8], [9,10], [11,12]]
+\end{lstlisting}
+
+By performing these transformations and then flattening the result back into a 1 dimensional vector
+we get the exact same result as the original program.
+
+What we gain from this is that the inner maps can each be performed sequentially, whilst the outer map
+can be performed in parallel, by transforming the program we can tune the amount of parallelization. 

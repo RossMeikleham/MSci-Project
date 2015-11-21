@@ -1,2 +1,10 @@
 \section{Abstract}
-This is an abstract, talking about abstracty things
+In the past scientific Fortran code was mainly written sequentially; programmers 
+could rely on faster processors being produced in the future which would in turn result in a 
+speedup of these programs. However, in the past decade processor speeds have started
+to stagnate. These scientific programs typically have a large amount of data parallelism that is 
+able to be exploited. This can result in very large performance gains when converted to run 
+on heterogeneous platforms such as FPGAs or GPUs. However this typically requires heavy modification of older code, 
+and in-depth knowledge of parallel programming. This project focuses on exploring type transformations with 
+dependent types to automatically generate correct by construction program variants, and selecting
+one of these variants which results in the "best" results with respect to a given cost model.

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" font-family="Arial" font-size="12" width="781" height="542">
+	<desc>Flowchart diagram model</desc>
+	<g id="_a7VCUgN7EeWIurmVlS1tXA">
+		<defs>
+			<linearGradient id="greyGradient" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+				<stop offset="0%" stop-color="#FFF" stop-opacity="1" />
+				<stop offset="100%" stop-color="#E5E5E5" stop-opacity="1" />
+				
+			</linearGradient>
+			<linearGradient id="packageGradient" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+				<stop offset="0%" stop-color="#FFF" stop-opacity="1" />
+				<stop offset="100%" stop-color="#EFE9DE" stop-opacity="1" />
+				
+			</linearGradient>
+			<linearGradient id="DecisionShapeWidget" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+				<stop offset="0%" stop-color="#EBE9F9" stop-opacity="1" />
+				<stop offset="100%" stop-color="#C1BFEA" stop-opacity="1" />
+				
+			</linearGradient>
+			<linearGradient id="PaperTapeShapeWidget" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+				<stop offset="0%" stop-color="#FFF" stop-opacity="1" />
+				<stop offset="100%" stop-color="#f5fffe" stop-opacity="1" />
+				
+			</linearGradient>
+			<linearGradient id="DocumentShapeWidget" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+				<stop offset="0%" stop-color="#FFF" stop-opacity="1" />
+				<stop offset="100%" stop-color="#f5fffe" stop-opacity="1" />
+				
+			</linearGradient>
+			<linearGradient id="ActionShapeWidget" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+				<stop offset="0%" stop-color="#FFF" stop-opacity="1" />
+				<stop offset="100%" stop-color="#B3E0FF" stop-opacity="1" />
+				
+			</linearGradient>
+			<linearGradient id="98FB98" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+				<stop offset="0%" stop-color="rgb(255, 255, 255)" stop-opacity="1" />
+				<stop offset="100%" stop-color="rgb(152, 251, 152)" stop-opacity="1" />
+				
+			</linearGradient>
+			
+		</defs>
+		<g id="_Wwqh8OWpEDKm3ZPVRmHpcQ" transform="translate(170 12)">
+			<path d="M1 12.0C60.0 48.0 60.0 -24.0 119 12.0L119 68.0C60.0 32.0 60.0 104.0 1 68.0L1 12.0" fill="url(#PaperTapeShapeWidget)" stroke-width="1" stroke="#888888" />
+			<text y="27" text-anchor="middle" fill="#000000">
+				<tspan x="61" dy="12">Fortran Source</tspan>
+				<tspan x="61" dy="12">Code</tspan>
+				
+			</text>
+			
+		</g>
+		<g id="_Xgy-YOWpEDKm3ZPVRmHpcQ" transform="translate(180 142)">
+			<rect x="0" y="0" width="100" height="82" rx="0" ry="0" fill="url(#98FB98)" stroke="rgb(92, 151, 92)" stroke-width="1" />
+			<text y="4" text-anchor="middle" fill="rgb(46, 76, 46)">
+				<tspan x="51" dy="12">Compile</tspan>
+				<tspan x="51" dy="12">Fortran to</tspan>
+				<tspan x="51" dy="12">Vector</tspan>
+				<tspan x="51" dy="12">Streaming</tspan>
+				<tspan x="51" dy="12">EDSL Idris</tspan>
+				<tspan x="51" dy="12">code</tspan>
+				
+			</text>
+			
+		</g>
+		<g id="_nybWIICyEDOUDdkhpCt9Fg" transform="translate(410 2)">
+			<path d="M1 1L330 1L330 369L1 369L1 1" fill="#FFF" stroke-width="1" stroke="#888888" />
+			<path d="M33.6 1L33.6 369M1 33.6L330 33.6" fill="#FFF" stroke-width="1" stroke="#888888" />
+			<text y="375" text-anchor="middle" fill="#000000"></text>
+			
+		</g>
+		<g id="_MOvswIC0EDOUDdkhpCt9Fg" transform="translate(500 392)">
+			<rect x="0" y="0" width="100" height="40" rx="0" ry="0" fill="url(#98FB98)" stroke="rgb(92, 151, 92)" stroke-width="1" />
+			<text y="7" text-anchor="middle" fill="rgb(46, 76, 46)">
+				<tspan x="51" dy="12">Generate IR</tspan>
+				<tspan x="51" dy="12">code</tspan>
+				
+			</text>
+			
+		</g>
+		<g id="_pWlwMIC1EDOUDdkhpCt9Fg" transform="translate(500 462)">
+			<rect x="0" y="0" width="100" height="40" rx="0" ry="0" fill="url(#98FB98)" stroke="rgb(92, 151, 92)" stroke-width="1" />
+			<text y="7" text-anchor="middle" fill="rgb(46, 76, 46)">
+				<tspan x="51" dy="12">Synthesize to</tspan>
+				<tspan x="51" dy="12">FPGA</tspan>
+				
+			</text>
+			
+		</g>
+		<g id="_tjIpIIC1EDOUDdkhpCt9Fg" transform="translate(190 262)">
+			<path d="M1 1L79 1L79 59.5Q61.06 59.5 47.8 67.3Q24.4 82.9 1 75.1L1 1" fill="url(#DocumentShapeWidget)" stroke-width="1" stroke="#888888" />
+			<text y="15" text-anchor="middle" fill="#000000">
+				<tspan x="41" dy="12">Cost Model</tspan>
+				<tspan x="41" dy="12">Parameters</tspan>
+				
+			</text>
+			
+		</g>
+		<g id="_Z62wEIC3EDOUDdkhpCt9Fg">
+			<polygon fill="#FFFFFF" stroke-width="1" stroke="#888888" points="300,92 300,156 405,156 405,107 390,92 " />
+			<text x="304" y="97" fill="#2D2D2D">
+				<tspan x="304" y="109" font-size="12">Code passes </tspan>
+				<tspan x="304" y="121" font-size="12">EDSL into</tspan>
+				<tspan x="304" y="133" font-size="12">Framework</tspan>
+				<tspan x="304" y="145" font-size="12">Module</tspan>
+				
+			</text>
+			<polygon fill="#888888" stroke-width="1" stroke="#888888" points="390,92 390,107 405,107 " />
+			
+		</g>
+		<g id="_i7rQUIC3EDOUDdkhpCt9Fg">
+			<polygon fill="#FFFFFF" stroke-width="1" stroke="#888888" points="280,302 280,394 406,394 406,317 391,302 " />
+			<text x="284" y="307" fill="#2D2D2D">
+				<tspan x="284" y="319" font-size="12">Cost Model</tspan>
+				<tspan x="284" y="331" font-size="12">Parameters are</tspan>
+				<tspan x="284" y="343" font-size="12">passed into the</tspan>
+				<tspan x="284" y="355" font-size="12">Framework with</tspan>
+				<tspan x="284" y="367" font-size="12">the EDSL code</tspan>
+				
+			</text>
+			<polygon fill="#888888" stroke-width="1" stroke="#888888" points="391,302 391,317 406,317 " />
+			
+		</g>
+		<g id="_hMqGkICzEDOUDdkhpCt9Fg" transform="translate(484 52)">
+			<rect x="0" y="0" width="132" height="40" rx="0" ry="0" fill="url(#ActionShapeWidget)" stroke="#888888" stroke-width="1" />
+			<text y="7" text-anchor="middle" fill="#000000">
+				<tspan x="67" dy="12">Generate Program</tspan>
+				<tspan x="67" dy="12">Variants</tspan>
+				
+			</text>
+			
+		</g>
+		<g id="_6y6vEICzEDOUDdkhpCt9Fg" transform="translate(459 142)">
+			<rect x="0" y="0" width="182" height="40" rx="0" ry="0" fill="url(#ActionShapeWidget)" stroke="#888888" stroke-width="1" />
+			<text y="1" text-anchor="middle" fill="#000000">
+				<tspan x="92" dy="12">Apply Cost Model</tspan>
+				<tspan x="92" dy="12">Parameters, and Select The</tspan>
+				<tspan x="92" dy="12">Best Program</tspan>
+				
+			</text>
+			
+		</g>
+		<g id="_DoOi4IC0EDOUDdkhpCt9Fg" transform="translate(511 232)">
+			<path d="M40.0 1L79 40.0L40.0 79L1 40.0L40.0 1" fill="url(#DecisionShapeWidget)" stroke-width="1" stroke="#888888" />
+			<text y="27" text-anchor="middle" fill="#000000">
+				<tspan x="41" dy="12">Compiling</tspan>
+				<tspan x="41" dy="12">to IR</tspan>
+				
+			</text>
+			
+		</g>
+		<g id="_Han2cIC0EDOUDdkhpCt9Fg" transform="translate(630 252)">
+			<rect x="0" y="0" width="100" height="40" rx="0" ry="0" fill="url(#ActionShapeWidget)" stroke="#888888" stroke-width="1" />
+			<text y="7" text-anchor="middle" fill="#000000">
+				<tspan x="51" dy="12">Interpret the</tspan>
+				<tspan x="51" dy="12">Program</tspan>
+				
+			</text>
+			
+		</g>
+		<g id="_rllXUIC1EDOUDdkhpCt9Fg">
+			<polyline fill="none" stroke-width="1" stroke="#000" points="550,432 550,462" />
+			<g transform="translate(550,462)">
+				<g transform="rotate(-180)">
+					<polyline fill="none" stroke-width="1" stroke="#000" points="-4,12 0,0 4,12" />
+					
+				</g>
+				
+			</g>
+			
+		</g>
+		<g id="_bGwX8IC2EDOUDdkhpCt9Fg">
+			<polyline fill="none" stroke-width="1" stroke="#000" points="280,183 410,185" />
+			<g transform="translate(410,185)">
+				<g transform="rotate(91)">
+					<polyline fill="none" stroke-width="1" stroke="#000" points="-4,12 0,0 4,12" />
+					
+				</g>
+				
+			</g>
+			
+		</g>
+		<g id="_c_Z7oIC2EDOUDdkhpCt9Fg">
+			<polyline fill="none" stroke-width="1" stroke="#000" points="270,288 410,242" />
+			<g transform="translate(410,242)">
+				<g transform="rotate(72)">
+					<polyline fill="none" stroke-width="1" stroke="#000" points="-4,12 0,0 4,12" />
+					
+				</g>
+				
+			</g>
+			
+		</g>
+		<g id="_eSIHwIC2EDOUDdkhpCt9Fg">
+			<polyline fill="none" stroke-width="1" stroke="#000" points="230,92 230,142" />
+			<g transform="translate(230,142)">
+				<g transform="rotate(-180)">
+					<polyline fill="none" stroke-width="1" stroke="#000" points="-4,12 0,0 4,12" />
+					
+				</g>
+				
+			</g>
+			
+		</g>
+		<g id="_ULfrcIC1EDOUDdkhpCt9Fg">
+			<polyline fill="none" stroke-width="1" stroke="#000" points="591,272 630,272" />
+			<g transform="translate(630,272)">
+				<g transform="rotate(90)">
+					<polyline fill="none" stroke-width="1" stroke="#000" points="-4,12 0,0 4,12" />
+					
+				</g>
+				
+			</g>
+			
+		</g>
+		<g id="_U-qNwIC1EDOUDdkhpCt9Fg">
+			<polyline fill="none" stroke-width="1" stroke="#000" points="550,312 550,392" />
+			<g transform="translate(550,392)">
+				<g transform="rotate(-180)">
+					<polyline fill="none" stroke-width="1" stroke="#000" points="-4,12 0,0 4,12" />
+					
+				</g>
+				
+			</g>
+			
+		</g>
+		<g id="_VXdA4IC4EDOUDdkhpCt9Fg">
+			<polyline fill="none" stroke-width="1" stroke="#000" points="550,92 550,142" />
+			<g transform="translate(550,142)">
+				<g transform="rotate(-180)">
+					<polyline fill="none" stroke-width="1" stroke="#000" points="-4,12 0,0 4,12" />
+					
+				</g>
+				
+			</g>
+			
+		</g>
+		<g id="_V_sFkIC4EDOUDdkhpCt9Fg">
+			<polyline fill="none" stroke-width="1" stroke="#000" points="550,182 550,232" />
+			<g transform="translate(550,232)">
+				<g transform="rotate(-180)">
+					<polyline fill="none" stroke-width="1" stroke="#000" points="-4,12 0,0 4,12" />
+					
+				</g>
+				
+			</g>
+			
+		</g>
+		<text x="554" y="444" font-size="13" fill="#000000"></text>
+		<text x="454" y="29" font-size="13" fill="#000000">Framework</text>
+		<text x="54" y="459" font-size="13" fill="#000000"></text>
+		<text x="234" y="114" font-size="13" fill="#000000"></text>
+		<text x="600" y="269" font-size="13" fill="#000000">No</text>
+		<text x="554" y="349" font-size="13" fill="#000000">Yes</text>
+		<text x="554" y="114" font-size="13" fill="#000000"></text>
+		<text x="554" y="204" font-size="13" fill="#000000"></text>
+		
+	</g>
+	
+</svg>
