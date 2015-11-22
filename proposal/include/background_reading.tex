@@ -15,7 +15,7 @@ via channels. Communication can also be performed between concurrent processes u
 a process assigns a value to a signal which can be read by another signal in the same clock cycle.
 
 Parallelism in Handel-C has to be explicitly defined. 
-There is also no support for limiting shared access to variables; It's possible for two concurrent processes to write
+There is also no support for limiting shared access to variables; it's possible for two concurrent processes to write
 to the same register at the same time, which is undefined. It's also the programmers responsibility to ensure that shared access 
 to variables is handled correctly. 
 
@@ -53,7 +53,7 @@ into only being able to work with Xilinx FPGAs, and cannot be used in FPGAs from
 
 \subsubsection{Synphony C Compiler}
 The Symphony C Compiler\cite{syn} generates RTL implementations for ASICs and FPGAs
-from a subset of C/C++. Its focus is on parallelising single-threaded sequential code for
+from a subset of C/C++. Its focus is on parallelizing single-threaded sequential code for
 synthesis. Most optimization options are set in the source code through the use of pragmas \cite{hlstools}.
 Other options such as the target platform and clock rate are set through the GUI or the
 compilation script. The compiler also attempts to perform optimizations by predicting
@@ -79,9 +79,7 @@ construct in that values can appear in types. The type systems
 in these languages are usually an extension of type systems found in purely functional languages such as ML or Haskell.
 However, a complication of a dependent type system is that type inference is no longer possible in
 many cases that would be possible in ML or Haskell like type systems \cite{practicalDependent}.
-
-
-listing ~\ref{idrVectDef} implements a list with size in Idris. 
+Listing ~\ref{idrVectDef} implements a list with size in Idris. 
 
 \inputIdrisListing[caption={Vector definition in Idris}, label=idrVectDef, float=htp]{code/vectDef.idr}
 
@@ -106,12 +104,12 @@ use for this project.
 
 \subsubsection{Idris}
 
-Idris\cite{idris} is a dependently typed programming language which features Haskell-like syntax, and tactic
-based theorem proving. Idris was designed to be used for practical general purpose programming, and puts high level
+Idris\cite{idris} is a dependently typed programming language which features Haskell-like syntax and tactic
+based theorem proving, it was also designed to be used for practical general purpose programming, and puts high level
 programming ahead of theorem proving. As a result of this it has high level features such as type classes and list 
 comprehensions. 
 
-Like Haskell it also includes do notation for chaining together monadic computations, making them more readable. 
+Like Haskell it also includes 'do' notation for chaining together monadic computations, making them more readable. 
 The compiler is designed to perform many performance improving
 optimizations, most notably applying partial evaluation whenever possible. This can be useful for efficiently implementing
 EDSLs\cite{edslidris}. Idris also has support for implementing EDSLs\cite{edslidris2}, such as allowing to extend the syntax of the language.   
@@ -128,7 +126,7 @@ releases of the language.
 \subsubsection{Agda}
 
 Agda\cite{agda} is a dependently typed programming language with similar syntax to Haskell, and a similar
-type system to Idris..
+type system to Idris.
 Unlike both Idris and Coq, Agda does not have support for tactics, so proofs have to be written
 in a functional style. Agda is a total functional language\cite{total} (i.e. every function must terminate, and every function
 must cover all possible values for its input type(s)). As a result of this Agda is not Turing complete, and
@@ -142,12 +140,12 @@ Agda's main back end compiles down to Haskell.
 
 \subsubsection{Coq}
 Coq\cite{coq} is a proof assistant which implements a dependently typed programming language called Gallina, 
-thus The main focus of Coq is for theorem proving rather than for general purpose programming. It has ML-like syntax. 
+thus the main focus of Coq is for theorem proving rather than for general purpose programming. It has ML-like syntax. 
 Coq Programs can be extracted to a more conventional programming language such as Haskell, this allows for verifying properties of programs
 written in mainstream languages.
 Coq, like Agda is a total functional language and as a result is not Turing complete. 
 
-Coq, unlike both Idris and Agda doesn't support induction-recursion\cite{inductionrecur} and as a result it's not
+Coq, unlike both Idris and Agda, doesn't support induction-recursion\cite{inductionrecur} and as a result it's not
 possible to define mutually recursive types and functions.
 
 

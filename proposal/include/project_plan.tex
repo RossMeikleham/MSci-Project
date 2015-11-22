@@ -1,0 +1,23 @@
+\section{Project Plan}
+
+Figure~\ref{flow} shows the overview of the proposed framework.
+
+The steps to create the planned framework are as follows:
+\begin{itemize}
+\item Implement the EDSL, which encapsulates the vector type transformations, supports
+      a rudimentary cost model, as well as including variants for describing how to parallelize
+      maps and folds. 
+
+\item Implement the ability to interpret the EDSL from Idris, this can
+      be helpful for testing while creating the framework, as well as for
+      testing programs before converting them onto a FPGA.
+
+\item Implement generating all possible program variants from a given program,
+      if possible use Idris with the vector type transformation properties to prove
+      that variants will always generate the same results as the original program.
+
+\item Implement a flexible interface for exporting the EDSL into IR formats.
+\end{itemize}
+
+After the framework implementation we plan to create some non trivial programs 
+to demonstrate how the framework can be feasibly used for generating efficient programs. 
