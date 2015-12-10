@@ -2,22 +2,71 @@
 
 Figure~\ref{flow} shows the overview of the proposed framework.
 
-The steps to create the planned framework are as follows:
-\begin{itemize}
-\item Implement the EDSL, which encapsulates the vector type transformations, supports
-      a rudimentary cost model, as well as including variants for describing how to parallelize
-      maps and folds. 
+The project plan (illustrated in figure~\ref{fig:workPlan}) is described below
 
-\item Implement the ability to interpret the EDSL from Idris, this can
+\textbf{Project Proposal (Weeks 1-7)}:
+\begin{itemize}
+\item Researching, performing a feasibility study, and writing up this report.
+\end{itemize}
+
+\textbf{Implementation (Weeks 8-24)}: 
+\begin{itemize}
+\item \textbf{Weeks 8-14} Implement the EDSL, which encapsulates the vector type transformations, supports
+      a rudimentary cost model, as well as including variants for describing how to parallelize
+      maps and folds. Also implement the ability to interpret the EDSL from Idris, this can
       be helpful for testing while creating the framework, as well as for
       testing programs before converting them onto a FPGA.
 
-\item Implement generating all possible program variants from a given program,
+\item \textbf{Weeks 15-19} Implement generating all possible program variants from a given program,
       if possible use Idris with the vector type transformation properties to prove
       that variants will always generate the same results as the original program.
 
-\item Implement a flexible interface for exporting the EDSL into IR formats.
+\item \textbf{Weeks 20-22} Implement a flexible interface for exporting the EDSL into IR formats.
+
+\item \textbf{Weeks 23-24} If the project is not running on schedule this time can be allocated to catching up.
+Due to Idris not having a stable release the codebase may need to be updated if there are breaking changed,
+or it may take some time to overcome an issue due to bugs in the implementation. If on schedule, this time
+can be allocated into adding new features, or improving the implementation.
 \end{itemize}
 
-After the framework implementation we plan to create some non trivial programs 
-to demonstrate how the framework can be feasibly used for generating efficient programs. 
+\textbf{Project Writeup + Presentation (Weeks 25-28)}
+\begin{itemize}
+\item This time is dedicated to writing up the project paper and preparing 
+the presentation.
+\end{itemize}
+
+
+
+
+
+\begin{figure*}
+    \begin{ganttchart}[vgrid, x unit=0.47cm, y unit chart=0.5cm]{1}{28}
+        \gantttitle{Academic Weeks}{28} \\
+		\gantttitle{Semester 1}{13} \gantttitle{Semester 2}{15} \\
+        \gantttitlelist{1,...,28}{1} \\
+		\ganttgroup{Project Proposal}{1}{7} \\
+		\ganttbar{Background Reading}{1}{2} \\
+		\ganttbar{Feasibility Study}{3}{5} \\
+		\ganttlinkedbar{Proposal Writeup}{6}{7} \\
+		\ganttmilestone{Project Proposal Complete}{7} \\
+		\ganttgroup{Implementation}{8}{24} \\
+		\ganttbar{EDSL implementation}{8}{14} \\
+		\ganttbar{Program Variant Generation}{15}{19} \\
+		\ganttbar{IR Interface}{20}{22} \\
+		\ganttbar{Slack Time}{23}{24} \\
+		\ganttmilestone{Implementation Complete}{24} \\
+		\ganttbar{Project Writeup + Presentation}{25}{28}
+		
+
+		\ganttlink{elem1}{elem2}
+ 	 	\ganttlink{elem2}{elem3}
+		\ganttlink{elem3}{elem4}	
+		\ganttlink{elem4}{elem6}	
+        \ganttlink{elem6}{elem7}
+        \ganttlink{elem7}{elem8}
+        \ganttlink{elem8}{elem9}
+        \ganttlink{elem9}{elem11}
+    \end{ganttchart}
+    \caption{Project Schedule as Gantt Chart}
+    \label{fig:workPlan}
+\end{figure*}
