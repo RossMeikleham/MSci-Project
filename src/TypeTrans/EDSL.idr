@@ -57,7 +57,7 @@ data Expr : (Vect xs TypeT) -> TypeT -> Type where
   -- ensure given type is a monoid and use the respective monoid function for that type,
   -- using implicit type class instances we can select which monoid we wish to use
   -- e.g. the natural numbers can create a monoid instance for both addition and multiplication 
-  --FoldAssoc : (Monoid (interpType a)) => FoldVariant -> Expr G a -> Expr G (TyVect n a) -> Expr G a
+  FoldAssoc : (Monoid (interpType a)) => FoldVariant -> Expr G a -> Expr G (TyVect n a) -> Expr G a
 
   Lambda : Expr (a :: G) t -> Expr G (TyFun a t)
   --Compose : Expr G (TyFun a  -> Expr (head a
@@ -105,7 +105,9 @@ interp env (FoldR vt f x xs) =
   case (interp env xs) of
     [] => interp env x
     (y::ys) => interp env $ Apply (Apply f $ UnOp head xs) (FoldR vt f x $ UnOp tail xs)                             
+ 
 
+interp env (FoldAssoc vt f x xs) = interp env (FoldL vt f x xs)
 
 interp env (Op op x y) = op (interp env x) (interp env y)
 interp env (UnOp op x) = op (interp env x) 

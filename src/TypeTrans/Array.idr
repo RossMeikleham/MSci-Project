@@ -120,14 +120,12 @@ incDim v {m = S r} {n} =
         fstN :: (incDim rest)
 
 
-
 reshape' : Array (x1::(m * x2)::xs) t -> Array((x1 * m)::x2::xs) t
 reshape' [] = []
 reshape' (v::vs) = incDim v ++ reshape' vs
 
 reshape : Array (x1::(m * x2)::xs) t -> Array ((m * x1)::x2::xs) t
 reshape v {m} {x1} = rewrite (multCommutative m x1) in reshape' v
-
 
 
 invReshape' : Array ((x1 * m)::x2::xs) t -> Array (x1::(m * x2)::xs) t
@@ -164,6 +162,7 @@ modMProof : (m : Nat) -> (n: Nat) -> {default SIsNotZ nz : Not (m = Z)} -> modNa
 modMProof Z _ {nz} = void (nz Refl)
 modMProof _ Z ?= Z
 modMProof m n ?= Z
+
 
 
 -- TODO fill these out latee
@@ -286,14 +285,10 @@ splitV m a {mz} {nz} = incDimV $ reshapeByFV m a {mz = mz} {nz = nz}
 
 
 
-
---generateCombinations : Array (x::xs) t -> List (Array(n1::n2::xs))
-
-
 doubleToNat : Double -> Nat
 doubleToNat d = fromIntegerNat $ cast d
 
-
+-- Generate all factors for a given number
 factors : Nat -> List Nat
 factors (S Z) = [(S Z)]
 factors n = assert_total $ lows ++ (reverse $ map (div n) lows)
@@ -304,3 +299,41 @@ factors n = assert_total $ lows ++ (reverse $ map (div n) lows)
 -- the given Vector
 factorsV : Array (x::xs) t -> List Nat
 factorsV {x} _ = factors x
+
+-- Generate all factor pairs of a given natural number
+factorPairs : Nat -> List (Nat, Nat)
+factorPairs n = assert_total $ map (\f => (f, div n f)) fs 
+  where fs = factors n
+
+
+-- Warning, Blasphemous "Untotal" Code Lies Below
+
+-- Sacrificing totality for functionality, split an Array into a higher
+-- dimension
+partial
+splitA2 : (n : Nat) -> Array (x::xs) t -> Array (n :: div x n :: xs) t
+splitA2 n xs {x} = split' n (div x n) (toList xs)
+  where 
+        partial
+        getN : (n : Nat) -> List t -> Vect n t
+        getN Z l = []
+        getN (S n) (x::xs) = x::(getN n xs)
+        
+        partial 
+        split' : (m : Nat) -> (n : Nat) -> List t -> Vect m (Vect n t)
+        split' Z _ _ = []
+        split' (S m) n xs = (getN n xs)::(split' m n (drop n xs))
+
+infixr 5 !!;
+partial
+(!!) : {a : Type} -> List a -> Nat -> a
+(x::xs) !! Z = x
+(x::xs) !! (S n) = xs !! n
+
+-- Split an array by the nth factor of its highest dimension, 
+-- returns a Sigma Type containing the given factor with the split array
+partial
+splitNFactor: (n : Nat) -> Array (x::xs) t -> (f : Nat ** Array (f :: div x f :: xs) t)
+splitNFactor n xs {x} = (f ** (splitA2 f xs))
+  where f = factors x !! n
+
