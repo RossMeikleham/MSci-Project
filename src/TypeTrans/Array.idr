@@ -11,8 +11,8 @@ import Data.List
 
 -- A Shape is a Vector which represents the structure
 -- of an Array e.g. the shape of [[1,2,3],[1,2,3]] would be [2,3]
-Shape : Nat -> Type
-Shape n = Vect n Nat
+Shape : Type
+Shape = List Nat
 
 -- Rank represents the number of dimensions in an
 -- Array, e.g. the rank of [[]] would be 2
@@ -20,7 +20,7 @@ Rank : Type
 Rank = Nat
 
 
-Array : Shape n -> Type -> Type
+Array : Shape -> Type -> Type
 Array [] t  = t
 Array (v::vs) t = Vect v (Array vs t)
 
@@ -35,7 +35,7 @@ length' : Vect n t -> Nat
 length' v {n} = n 
 
 -- Give the shape of a given array
-shape : Array xs t -> Shape (length' xs) 
+shape : Array xs t -> Shape 
 shape arr {xs} = xs
 
 
@@ -70,6 +70,39 @@ mapA f v {xs=[]}  = f v
 mapA f v {xs = (y::ys)} = map (mapA f) v
 
 
+mapM : Monad m => (a -> m b) -> Vect n a -> m (Vect n b)
+mapM _ Nil = return Vect.Nil
+mapM f (x::xs) = do
+  x' <- f x
+  xs' <- mapM f xs
+  return (Vect.(::) x' xs')
+
+mapM_ : Monad m => (a -> m b) -> Vect n a -> m ()
+mapM_ _ Nil = return ()
+mapM_ f (x::xs) = do
+  f x
+  mapM_ f xs
+
+mapMA : Monad m => (a -> m b) -> Array xs a -> m (Array xs b)
+mapMA f v {xs=[]} = f v
+mapMA f v {xs = (y::ys)} = mapM (mapMA f) v
+
+mapMA_ : Monad m => (a -> m b) -> Array xs a -> m ()
+mapMA_ f v = do
+  mapMA f v
+  return ()
+
+mapML : Monad m => (a -> m b) -> List a -> m (List b)
+mapML _ [] = return []
+mapML f (x::xs) = do
+    x' <- f x
+    xs' <- mapML f xs
+    return (x'::xs')
+
+mapML_ : Monad m => (a -> m b) -> List a -> m ()
+mapML_ f v = do 
+  mapML f v
+  return ()
 
 -- | Reduce the dimensions of a 2+ dimensional vector
 redDim : Array (x1::x2::xs) t -> Array (x1*x2::xs) t
@@ -306,8 +339,6 @@ factorPairs n = assert_total $ map (\f => (f, div n f)) fs
   where fs = factors n
 
 
--- Warning, Blasphemous "Untotal" Code Lies Below
-
 -- Sacrificing totality for functionality, split an Array into a higher
 -- dimension
 partial
@@ -336,4 +367,61 @@ partial
 splitNFactor: (n : Nat) -> Array (x::xs) t -> (f : Nat ** Array (f :: div x f :: xs) t)
 splitNFactor n xs {x} = (f ** (splitA2 f xs))
   where f = factors x !! n
+
+-- Generate all possible vector combinations using the factors of the highest
+-- dimension of the given vector, returns a list of sigma values containing the
+-- largest dimension of each split array along with the split array itself
+partial
+splitFactors : Array (x::xs) t -> List (f : Nat ** Array (f :: div x f :: xs) t)
+splitFactors xs {x} = map (\f => (f ** splitA2 f xs)) (factors x)
+
+partial
+convertFactors : (f ** Array (f :: div x f :: xs) t) -> (ys ** Array ys t) 
+convertFactors (f ** ys) {x} {xs} = assert_total $ ((f :: div x f :: xs) ** ys)
+
+partial
+splitFactorsGeneric : Array (x::xs) t -> List (ys ** Array ys t)
+splitFactorsGeneric xs = map convertFactors $ splitFactors xs
+
+
+
+toVect : Array (x::xs) t -> Vect x (Array xs t)
+toVect = id
+
+fromVect : Vect n t -> Array [n] t
+fromVect = id
+
+partial
+printVect : (Show t) => Vect xs t -> IO()
+printVect xs = do 
+  print "[ "  
+  mapM_ (\x => print x >>= \_ => print " ") xs
+  print "]"
+
+
+partial
+printArr : (Show t) => Array xs t -> IO ()
+printArr vs {t} = printArr' vs >>= \_ => putStrLn ""
+  where 
+    printArr' : (Show t) => Array xs t -> IO ()
+    printArr' v {xs=[]} = print v >>= \_ => putStr ""
+    printArr' v {xs = (y::ys)} = do
+      putStr "["
+      case v of
+        [] => putStr ""
+        (a::as) => do
+          mapM_ (\x => printArr' x >>= \_ => putStr ",") $ init (a::as)
+          printArr' (last (a::as))  
+  
+      putStr "]"
+
+partial
+printSigmaArr : (Show t) => (xs ** Array xs t) -> IO ()
+printSigmaArr v {t} with (v) 
+  | (xs ** vs) = printArr vs {t}
+
+
+partial
+printArrs : (Show t) => List (xs ** Array xs t) -> IO ()
+printArrs vs {t} = mapML_ (\v => printSigmaArr v {t}) vs
 

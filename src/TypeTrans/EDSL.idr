@@ -57,7 +57,7 @@ data Expr : (Vect xs TypeT) -> TypeT -> Type where
   -- ensure given type is a monoid and use the respective monoid function for that type,
   -- using implicit type class instances we can select which monoid we wish to use
   -- e.g. the natural numbers can create a monoid instance for both addition and multiplication 
-  FoldAssoc : (Monoid (interpType a)) => FoldVariant -> Expr G a -> Expr G (TyVect n a) -> Expr G a
+  --FoldAssoc : (Monoid (interpType a)) => FoldVariant -> Expr G a -> Expr G (TyVect n a) -> Expr G a
 
   Lambda : Expr (a :: G) t -> Expr G (TyFun a t)
   --Compose : Expr G (TyFun a  -> Expr (head a
@@ -107,12 +107,40 @@ interp env (FoldR vt f x xs) =
     (y::ys) => interp env $ Apply (Apply f $ UnOp head xs) (FoldR vt f x $ UnOp tail xs)                             
  
 
-interp env (FoldAssoc vt f x xs) = interp env (FoldL vt f x xs)
+--interp env (FoldAssoc vt f x xs) = interp env (FoldL vt f x xs)
 
 interp env (Op op x y) = op (interp env x) (interp env y)
 interp env (UnOp op x) = op (interp env x) 
-interp env (Merge xs) = merge $ interp env xs 
-interp env (Split m xs {nz} {mz}) = splitV m {nz} {mz} $ interp env xs
+--interp env (Merge xs) = merge $ interp env xs 
+--interp env (Split m xs {nz} {mz}) = splitV m {nz} {mz} $ interp env xs
+
+
+-- Generate All Different Combinations
+generate : Env G -> Expr G t -> Expr G t
+generate env (Var i) = (Var i)
+generate env (Val x) = (Val x)
+generate env (Apply f s) = Apply (convertS env f) (convertS env s)
+generate env (Lambda body) = Lambda (convertS body)
+generate env (Map vt f xs) = ?todo45 
+--  case (interp env xs) of
+--    [] => Nil
+--    (y::ys) => (interp env (Apply f (UnOp head xs))) :: (interp env (Map vt f (UnOp tail xs)))  
+generate env (FoldL vt f x xs) = ?todo57
+--  case (interp env xs) of
+--    [] => interp env x 
+--    (y::ys) => interp env $ FoldL vt f (Apply (Apply f x) $ UnOp head xs) $ UnOp tail xs 
+
+generate env (FoldR vt f x xs) = ?todo56
+--  case (interp env xs) of
+--    [] => interp env x
+--    (y::ys) => interp env $ Apply (Apply f $ UnOp head xs) (FoldR vt f x $ UnOp tail xs)                             
+ 
+
+--interp env (FoldAssoc vt f x xs) = interp env (FoldL vt f x xs)
+
+interp env (Op op x y) = Op op (generate env x) (generate env y)
+interp env (UnOp op x) = UnOp op (generate env x) 
+
 
 mkLam : TTName -> Expr (t::g) t' -> Expr g (TyFun t t')
 mkLam _ body = Lambda body

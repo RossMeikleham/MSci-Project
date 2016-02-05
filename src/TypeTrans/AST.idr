@@ -23,7 +23,7 @@ Cost = Float
 
 data Variant = Par | Seq | Stream | Tree 
 
-instance Show Variant where
+implementation Show Variant where
   show Par = "Par"
   show Seq = "Seq"
   show Stream = "Stream"
@@ -44,7 +44,7 @@ data TypeT =
     T2 | 
     T3 
 
-instance Show TypeT where 
+implementation Show TypeT where 
   show (Vec i t) = "Vec " ++ show i ++ " (" ++ show t ++ ")" 
   show (Tuple xs) = "Tuple " ++ show xs 
   show IntT = "Int"
@@ -80,7 +80,7 @@ mutual
        Res Action Argument |
        Let (List (Argument,Argument)) Argument --  let like this is not an action, it's only an action if I do  \x -> let ... x ... in ... i.e. Lambda x (let ...)
 
-  instance Show Argument where
+  implementation Show Argument where
     show (Arg n t) = "Arg " ++ n ++ " " ++ show t
     show (Val v t) = "Val " ++ v ++ " " ++ show t
     show (Res act arg) = "Res " ++ show act ++ " " ++ show arg
@@ -103,7 +103,7 @@ mutual
       Zip (List TypeT) | -- this should really only work on a set of vectors and return a Vec (Tuple [Type]) Int
       Unzip TypeT  -- This should really only work on a Tuple [Vec Type Int]
     
-  instance Show Action where 
+  implementation Show Action where 
     show (Opaque n xs arg t pc) = "Opaque " ++ n ++ " " ++ show xs ++ " " ++ 
                                   show arg ++ " "++ show t ++ " " ++ show pc
     show (OpaqueBin a n xs arg1 arg2 pc) = "Opaque " ++ show a ++ " " ++ n ++ " " ++
@@ -128,7 +128,7 @@ mutual
 
 data Program = Prog Action Argument  -- So actually Prog is identical to Res
 
-instance Show Program where
+implementation Show Program where
   show (Prog act arg) = "Prog " ++ show act ++ " " ++ show arg
 
 -- I also need to represent a while-loop 
